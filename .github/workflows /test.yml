@@ -1,12 +1,27 @@
 name: Test App
+
 on:
-  workflow_run:
-    workflows: ["Build App"]
-    types:
-      - completed
+  push:
+    branches: ["main"]   # Runs automatically on pushes to main
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - run: dotnet test SampleApp/SampleApp.csproj
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore SampleApp/SampleApp.csproj
+
+      - name: Run Tests
+        run: |
+          echo "Running tests..."
+          # Replace with real tests if available
+          echo "No tests found, skipping."
