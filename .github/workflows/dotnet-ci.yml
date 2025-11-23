@@ -1,35 +1,27 @@
 name: .NET CI
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'  # Change if using 6.0 or 7.0
-
       - name: Restore dependencies
         run: dotnet restore SampleApp/SampleApp.csproj
-
       - name: Build
         run: dotnet build SampleApp/SampleApp.csproj --configuration Release --no-restore
-
       - name: Run Tests
         run: echo "No tests found, skipping."
       - name: Publish
         run: dotnet publish SampleApp/SampleApp.csproj -c Release -o publish
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
