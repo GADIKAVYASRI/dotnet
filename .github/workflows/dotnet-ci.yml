@@ -27,8 +27,11 @@ jobs:
 
       - name: Run Tests
         run: echo "No tests found, skipping."
+      - name: Publish
+        run: dotnet publish SampleApp/SampleApp.csproj -c Release -o publish
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: sampleapp-build
-          path: ./build
+          path: publish
